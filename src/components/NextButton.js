@@ -1,6 +1,6 @@
-export default function NextButton({ dispatch, answer, index, result }) {
+function NextButton({ answer, dispatch, index, numResult }) {
   if (answer === null) return null;
-  if (index < result - 1)
+  if (index < numResult - 1)
     return (
       <button
         className="btn btn-ui"
@@ -9,7 +9,7 @@ export default function NextButton({ dispatch, answer, index, result }) {
         Next
       </button>
     );
-  if (index === result - 1)
+  if (index === numResult - 1)
     return (
       <button
         className="btn btn-ui"
@@ -19,3 +19,5 @@ export default function NextButton({ dispatch, answer, index, result }) {
       </button>
     );
 }
+
+export default NextButton;

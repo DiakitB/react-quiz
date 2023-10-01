@@ -59,3 +59,8 @@ function DateCounter() {
   );
 }
 export default DateCounter;
+
+// how to imitate an API call
+// 1 we install json-server with this comand line npm i json-server
+// 2 we add this script  to our package.json file "server": "json-server --watch data/questions.json --port 8000"
+// 3 we start our server by typing this command line in our terminal npm run server

@@ -1,172 +1,133 @@
 import { useEffect, useReducer } from "react";
-import Header from "./components/Header";
 import Main from "./components/Main";
+import Header from "./components/Header";
+import Loader from "./components/Loder";
 import Error from "./components/Error";
-import Loader from "./components/Loader";
-import StartScren from "./components/StartScren";
+import StartScreen from "./components/StartScreen";
 import Question from "./components/Question";
 import NextButton from "./components/NextButton";
 import Progress from "./components/Progress";
-import FinishScreen from "./components/FinishScreen";
-const questionsList = [
-  {
-    question: "Which is the most popular JavaScript framework?",
-    options: ["Angular", "React", "Svelte", "Vue"],
-    correctOption: 1,
-    points: 10,
-  },
-  {
-    question: "Which company invented React?",
-    options: ["Google", "Apple", "Netflix", "Facebook"],
-    correctOption: 3,
-    points: 10,
-  },
-  {
-    question: "What's the fundamental building block of React apps?",
-    options: ["Components", "Blocks", "Elements", "Effects"],
-    correctOption: 0,
-    points: 10,
-  },
-  {
-    question:
-      "What's the name of the syntax we use to describe the UI in React components?",
-    options: ["FBJ", "Babel", "JSX", "ES2015"],
-    correctOption: 2,
-    points: 10,
-  },
-  {
-    question: "How does data flow naturally in React apps?",
-    options: [
-      "From parents to children",
-      "From children to parents",
-      "Both ways",
-      "The developers decides",
-    ],
-    correctOption: 0,
-    points: 10,
-  },
-  {
-    question: "How to pass data into a child component?",
-    options: ["State", "Props", "PropTypes", "Parameters"],
-    correctOption: 1,
-    points: 10,
-  },
-  {
-    question: "When to use derived state?",
-    options: [
-      "Whenever the state should not trigger a re-render",
-      "Whenever the state can be synchronized with an effect",
-      "Whenever the state should be accessible to all components",
-      "Whenever the state can be computed from another state variable",
-    ],
-    correctOption: 3,
-    points: 30,
-  },
-  {
-    question: "What triggers a UI re-render in React?",
-    options: [
-      "Running an effect",
-      "Passing props",
-      "Updating state",
-      "Adding event listeners to DOM elements",
-    ],
-    correctOption: 2,
-    points: 20,
-  },
-  {
-    question: 'When do we directly "touch" the DOM in React?',
-    options: [
-      "When we need to listen to an event",
-      "When we need to change the UI",
-      "When we need to add styles",
-      "Almost never",
-    ],
-    correctOption: 3,
-    points: 20,
-  },
-  {
-    question: "In what situation do we use a callback to update state?",
-    options: [
-      "When updating the state will be slow",
-      "When the updated state is very data-intensive",
-      "When the state update should happen faster",
-      "When the new state depends on the previous state",
-    ],
-    correctOption: 3,
-    points: 30,
-  },
-  {
-    question:
-      "If we pass a function to useState, when will that function be called?",
-    options: [
-      "On each re-render",
-      "Each time we update the state",
-      "Only on the initial render",
-      "The first time we update the state",
-    ],
-    correctOption: 2,
-    points: 30,
-  },
-  {
-    question:
-      "Which hook to use for an API request on the component's initial render?",
-    options: ["useState", "useEffect", "useRef", "useReducer"],
-    correctOption: 1,
-    points: 10,
-  },
-  {
-    question: "Which variables should go into the useEffect dependency array?",
-    options: [
-      "Usually none",
-      "All our state variables",
-      "All state and props referenced in the effect",
-      "All variables needed for clean up",
-    ],
-    correctOption: 2,
-    points: 30,
-  },
-  {
-    question: "An effect will always run on the initial render.",
-    options: [
-      "True",
-      "It depends on the dependency array",
-      "False",
-      "In depends on the code in the effect",
-    ],
-    correctOption: 0,
-    points: 30,
-  },
-  {
-    question: "When will an effect run if it doesn't have a dependency array?",
-    options: [
-      "Only when the component mounts",
-      "Only when the component unmounts",
-      "The first time the component re-renders",
-      "Each time the component is re-rendered",
-    ],
-    correctOption: 3,
-    points: 20,
-  },
-];
-const initialeState = {
+import Finish from "./components/Finish";
+const initialState = {
   questions: [],
-  // 'loading', 'erro', 'read', 'active', 'finished
   status: "loading",
   index: 0,
   answer: null,
   points: 0,
+  currentQuestion: {},
 };
-////
+
+const Questions = [
+  {
+    question: "Which year was Isaiah born ?",
+    options: ["2006", "2007", "2010", "2011"],
+    correctOption: 1,
+    points: 10,
+  },
+  {
+    question: "What is Isaiah's last name?",
+    options: ["Brown", "Diakte", "DaiteKi", "Diakite"],
+    correctOption: 3,
+    points: 10,
+  },
+  {
+    question: "How tall is Isaiah?",
+    options: ["5'11", "6'2", "6'1", "5'10"],
+    correctOption: 0,
+    points: 10,
+  },
+  {
+    question: "What is Isaiah's favorite color?",
+    options: ["Green", "Red", "Blue", "Blac"],
+    correctOption: 2,
+    points: 10,
+  },
+  {
+    question: "What is Isaih's mom name?",
+    options: ["Melisa", "Karen", "Melissa", "Melessa"],
+    correctOption: 2,
+    points: 10,
+  },
+  {
+    question: "How intelligent is Isaiah?",
+    options: [
+      "a bit intelligen",
+      "intelligent",
+      "very intelligent",
+      " very very intelligent",
+    ],
+    correctOption: 3,
+    points: 10,
+  },
+  {
+    question: "When Isaiah sets his mind on something does he do it?",
+    options: [
+      "Some time",
+      "Not really",
+      "He always get the job done ",
+      "procrastinate and lazy",
+    ],
+    correctOption: 2,
+    points: 30,
+  },
+  {
+    question: "In which state does Isaiah live at?",
+    options: ["California", "New-York", "Ohio", "Idiana"],
+    correctOption: 2,
+    points: 20,
+  },
+  {
+    question: "What was Isaiah's Primary School name?",
+    options: [
+      " town scholl",
+      "Ecole b",
+      "When we need to add styles",
+      "Longfellow",
+    ],
+    correctOption: 3,
+    points: 20,
+  },
+  {
+    question: "What best describe Isaiah?",
+    options: [
+      "Very lazy ",
+      "some time lazy some time hard worker",
+      "I don't know it's hard to tell",
+      "don't like to leave his comfort zone",
+      "A go getter, very smart and goal oriented",
+    ],
+    correctOption: 4,
+    points: 30,
+  },
+  {
+    question: "What is 'Isaiah's race?",
+    options: ["white", "Latino", "Human", "Black"],
+    correctOption: 2,
+    points: 30,
+  },
+  {
+    question: "How much does Isaiah's dad loves him?",
+    options: [
+      "a bit ",
+      "very much",
+      "very very much like billion * billion * billion that much and more",
+      "like him very much",
+    ],
+    correctOption: 2,
+    points: 10,
+  },
+];
 function reducer(state, action) {
   switch (action.type) {
     case "data":
       return { ...state, questions: action.payload, status: "ready" };
     case "fail":
       return { ...state, status: "error" };
-    case "start":
-      return { ...state, status: "active" };
+    case "active":
+      return { ...state, status: "actived" };
     case "newAnswer":
       const question = state.questions.at(state.index);
+      console.log(question);
       return {
         ...state,
         answer: action.payload,
@@ -180,76 +141,73 @@ function reducer(state, action) {
     case "finish":
       return { ...state, status: "finished" };
     case "restart":
-      return { ...initialeState, questions: state.questions, status: "ready" };
+      return { initialState, questions: state.questions, status: "ready" };
     default:
       throw new Error("Unknown action");
   }
 }
 
-////
-////
-export default function App() {
-  const [state, dispatch] = useReducer(reducer, initialeState);
+function App() {
+  /// useReducer Hook
+  const [state, dispatch] = useReducer(reducer, initialState);
   const { questions, status, answer, index, points } = state;
-  const result = questions.length;
+  const numResult = questions.length;
   const totalPoints = questions.reduce((prev, cur) => prev + cur.points, 0);
-  console.log(`this is the result ${result}`);
+
+  /// useEffect Hook
   useEffect(function () {
-    async function getData() {
+    async function getQuestion() {
       try {
         // const res = await fetch("http://localhost:8000/questions");
         // const data = await res.json();
-        dispatch({ type: "data", payload: questionsList });
+        // console.log(data);
+        dispatch({ type: "data", payload: Questions });
       } catch (err) {
         dispatch({ type: "fail" });
       }
     }
-    getData();
+    getQuestion();
   }, []);
   return (
     <div className="app">
-      <Header />
-
       <Main>
+        <Header />
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
         {status === "ready" && (
-          <StartScren result={result} dispatch={dispatch} />
+          <StartScreen dispatch={dispatch} numResult={numResult} />
         )}
-        {status === "active" && (
+        {status === "actived" && (
           <>
             <Progress
-              index={index}
-              result={result}
               points={points}
+              numResult={numResult}
+              index={index}
               totalPoints={totalPoints}
-              answer={answer}
             />
             <Question
-              question={questions[index]}
+              question={questions.at(index)}
               dispatch={dispatch}
               answer={answer}
             />
             <NextButton
-              dispatch={dispatch}
               answer={answer}
+              dispatch={dispatch}
               index={index}
-              result={result}
+              numResult={numResult}
             />
-
-            {status === "fin" && <NextButton />}
           </>
         )}
         {status === "finished" && (
-          <FinishScreen
+          <Finish
             points={points}
             totalPoints={totalPoints}
             dispatch={dispatch}
           />
         )}
-        {}
       </Main>
     </div>
   );
 }
-//
+
+export default App;

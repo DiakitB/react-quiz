@@ -1,19 +1,18 @@
-export default function Progress({
-  index,
-  result,
-  points,
-  totalPoints,
-  answer,
-}) {
+function Progress({ numResult, index, points, totalPoints }) {
+  console.log(points);
   return (
     <header className="progress">
-      <progress max={result} value={index + Number(answer !== null)} />
+      <progress max={numResult} value={index} />
       <p>
-        Question <strong>{index + 1} </strong> /{result}
+        Question {index}/{numResult}
       </p>
       <p>
-        <strong>{points}</strong>/ {totalPoints}
+        <strong>
+          {points}/{totalPoints}
+        </strong>
       </p>
     </header>
   );
 }
+
+export default Progress;
