@@ -20,7 +20,7 @@
     },
     {
       "question": "What is Isaiah's favorite color?",
-      "options": ["Green", "Red", "Blue", "Blac"],
+      "options": ["Green", "Red", "Blue", "Black"],
       "correctOption": 2,
       "points": 10
     },
@@ -33,7 +33,7 @@
     {
       "question": "How intelligent is Isaiah?",
       "options": [
-        "a bit intelligen",
+        "a bit intelligent",
         "intelligent",
         "very intelligent",
         " very very intelligent"
@@ -60,12 +60,7 @@
     },
     {
       "question": "What was Isaiah's Primary School name?",
-      "options": [
-        " town scholl",
-        "Ecole b",
-        "When we need to add styles",
-        "Longfellow"
-      ],
+      "options": ["Town School", "Ecole b", "FellowLong", "Longfellow"],
       "correctOption": 3,
       "points": 20
     },

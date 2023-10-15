@@ -1,7 +1,4 @@
-import { useQuiz } from "../contexts/QuizContext";
-
-function StartScreen() {
-  const { dispatch, numResult } = useQuiz();
+function StartScreen({ dispatch, numResult }) {
   return (
     <div className="start">
       <h3>Welcome to ISAIAH Quiz</h3>
